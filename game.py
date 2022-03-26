@@ -11,6 +11,7 @@ pygame.display.set_caption("Conway's Game of Life")
 clock = pygame.time.Clock()
 
 white = (255, 255, 255)
+gray = (128, 128, 128)
 black = (0, 0, 0)
 cyan = (0, 255, 255)
 
@@ -89,9 +90,9 @@ while running:
     screen.fill(black)
     if show_grid:
         for i in range(0, width, 20):
-            pygame.draw.line(screen, white, (i, 0), (i, height))
+            pygame.draw.line(screen, gray, (i, 0), (i, height))
         for i in range(0, height, 20):
-            pygame.draw.line(screen, white, (0, i), (width, i))
+            pygame.draw.line(screen, gray, (0, i), (width, i))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
