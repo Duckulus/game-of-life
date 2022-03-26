@@ -13,6 +13,10 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 lime = (0, 255, 0)
 
+running = True
+started = False
+show_grid = False
+
 
 def next_state(state):
     new_state = []
@@ -47,17 +51,36 @@ for i in range(width//20):
     state.append([])
     for j in range(height//20):
         state[i].append(0)
-running = True
-started = False
+
+
+def setPaused(paused):
+    global started
+    started = not paused
+    if(paused):
+        pygame.display.set_caption("Conway's Game of Life [Paused]")
+    else:
+        pygame.display.set_caption("Conway's Game of Life [Running]")
+
+
+setPaused(True)
+
 while running:
     screen.fill(black)
+    if show_grid:
+        for i in range(0, width, 20):
+            pygame.draw.line(screen, white, (i, 0), (i, height))
+        for i in range(0, height, 20):
+            pygame.draw.line(screen, white, (0, i), (width, i))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         # clear state when escape is clicked
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_g:
+                show_grid = not show_grid
             if event.key == pygame.K_ESCAPE:
+                setPaused(True)
                 state = []
                 for i in range(width//20):
                     state.append([])
@@ -71,14 +94,11 @@ while running:
         # if enter is clicked set started to true
         if event.type == pygame.KEYDOWN and not started:
             if event.key == pygame.K_RETURN:
-                started = True
-                # add gamestate to display caption
-                pygame.display.set_caption("Conway's Game of Life [Running]")
+                setPaused(False)
         # if space is clicked set started to false
         if event.type == pygame.KEYDOWN and started:
             if event.key == pygame.K_SPACE:
-                started = False
-                pygame.display.set_caption("Conway's Game of Life [Paused]")
+                setPaused(True)
 
     if pygame.mouse.get_pressed()[0] and not started:
         x, y = pygame.mouse.get_pos()
