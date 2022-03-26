@@ -33,10 +33,13 @@ def number_of_cells(state):
 def next_state(state):
     global state_history, current
     state_history.append(state)
-    current = len(state_history) - 1
     print(f"Generation {current}: {number_of_cells(state)} cells")
+    current = len(state_history) - 1
     if number_of_cells(state) == 0:
         setPaused(True)
+        current = 0
+        state_history = []
+
     new_state = []
     for i in range(len(state)):
         new_state.append([])
@@ -100,6 +103,8 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 setPaused(True)
                 state = []
+                state_history = []
+                current = 0
                 for i in range(width//20):
                     state.append([])
                     for j in range(height//20):
