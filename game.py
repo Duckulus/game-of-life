@@ -21,10 +21,20 @@ state_history = []
 current = 0
 
 
+def number_of_cells(state):
+    count = 0
+    for i in range(len(state)):
+        for j in range(len(state[i])):
+            if state[i][j] == 1:
+                count += 1
+    return count
+
+
 def next_state(state):
     global state_history, current
     state_history.append(state)
     current = len(state_history) - 1
+    print(f"Generation {current}: {number_of_cells(state)} cells")
     new_state = []
     for i in range(len(state)):
         new_state.append([])
