@@ -87,11 +87,6 @@ while running:
                     state.append([])
                     for j in range(height//20):
                         state[i].append(0)
-        if event.type == pygame.MOUSEBUTTONDOWN and not started:
-            x, y = pygame.mouse.get_pos()
-            x = x // 20
-            y = y // 20
-            state[x][y] = 1 - state[x][y]
         # if enter is clicked set started to true
         if event.type == pygame.KEYDOWN and not started:
             if event.key == pygame.K_RETURN:
@@ -111,6 +106,12 @@ while running:
         x = x // 20
         y = y // 20
         state[x][y] = 1
+
+    if pygame.mouse.get_pressed()[2] and not started:
+        x, y = pygame.mouse.get_pos()
+        x = x // 20
+        y = y // 20
+        state[x][y] = 0
 
     # draw state
     for i in range(len(state)):
