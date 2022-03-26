@@ -1,3 +1,4 @@
+import random
 import pygame
 
 pygame.init()
@@ -95,6 +96,11 @@ while running:
         if event.type == pygame.KEYDOWN and not started:
             if event.key == pygame.K_RETURN:
                 setPaused(False)
+            # if r is pressed randomize state
+            if event.key == pygame.K_r:
+                for i in range(width//20):
+                    for j in range(height//20):
+                        state[i][j] = random.randint(0, 1)
         # if space is clicked set started to false
         if event.type == pygame.KEYDOWN and started:
             if event.key == pygame.K_SPACE:
