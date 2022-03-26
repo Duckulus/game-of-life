@@ -35,6 +35,8 @@ def next_state(state):
     state_history.append(state)
     current = len(state_history) - 1
     print(f"Generation {current}: {number_of_cells(state)} cells")
+    if number_of_cells(state) == 0:
+        setPaused(True)
     new_state = []
     for i in range(len(state)):
         new_state.append([])
