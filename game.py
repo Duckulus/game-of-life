@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 white = (255, 255, 255)
 black = (0, 0, 0)
-lime = (0, 255, 0)
+cyan = (0, 255, 255)
 
 running = True
 started = False
@@ -147,7 +147,8 @@ while running:
     for i in range(len(state)):
         for j in range(len(state[i])):
             if state[i][j] == 1:
-                pygame.draw.rect(screen, lime, (i * 20, j * 20, 20, 20))
+                pygame.draw.rect(
+                    screen, cyan, (i * 20 + 1, j * 20 + 1, 19, 19))
 
     if started:
         state = next_state(state)
