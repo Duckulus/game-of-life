@@ -17,9 +17,14 @@ lime = (0, 255, 0)
 running = True
 started = False
 show_grid = False
+state_history = []
+current = 0
 
 
 def next_state(state):
+    global state_history, current
+    state_history.append(state)
+    current = len(state_history) - 1
     new_state = []
     for i in range(len(state)):
         new_state.append([])
@@ -96,6 +101,14 @@ while running:
                 for i in range(width//20):
                     for j in range(height//20):
                         state[i][j] = random.randint(0, 1)
+            # if right arrow is pressed move to next state
+            if event.key == pygame.K_RIGHT:
+                state = next_state(state)
+            # if left arrow is pressed move to previous state
+            if event.key == pygame.K_LEFT:
+                if current > 0:
+                    current -= 1
+                    state = state_history[current]
         # if space is clicked set started to false
         if event.type == pygame.KEYDOWN and started:
             if event.key == pygame.K_SPACE:
